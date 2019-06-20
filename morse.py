@@ -1,9 +1,12 @@
-from mautrix.types import EventType, GenericEvent
-from maubot import Plugin, MessageEvent
-from maubot.handlers import event
-from typing import Type, Tuple
-from maubot.handlers import command
-
+try:
+    from mautrix.types import EventType, GenericEvent
+    from maubot import Plugin, MessageEvent
+    from maubot.handlers import event
+    from typing import Type, Tuple
+    from maubot.handlers import command
+except ImportError:
+    print("couldn't import maubot. I am standalone commandline decoder only")
+    
 import re
 
 ## the bot class
@@ -98,7 +101,7 @@ morsecode = (
         Morse("SK","...-.-"),
         Morse("SOS","...---..."),
         Morse("HH","........"),
-        Morse("!","----------------------------------------------------------"),
+        Morse("!","-.-.--"),
         )
 
 
