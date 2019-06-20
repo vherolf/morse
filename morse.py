@@ -12,7 +12,7 @@ class morse(Plugin):
     @command.new("morse", help="Morse a message")
     @command.argument("message" , pass_raw=True)
     async def morse_handler(self, evt: MessageEvent, message: str) -> None:
-        await evt.respond(decodeText(message))
+        await evt.respond(decodeMorseText(message))
 
     @command.passive(regex=r"^...---...$")
     async def ice_berg(self, evt: GenericEvent, _: str(Tuple[str]) ) -> None:
@@ -102,12 +102,13 @@ morsecode = (
         )
 
 
+## decode helper functions
+
 def sentencesFromMorseText(text='... --- \t .  \n ... --- .  \r  ... --- .'):
     ## splits text into sentences
     sentences = re.split(r'(\\{1,}|\r{1,}|\n{1,})', text)
     print('sentences', sentences)
     return sentences
-
 
 def wordsFromMorseSentences(sentence='... --- .  ... --- .   ... --- .'):
     ## splits a sentence into words when two or more spaces 
@@ -121,16 +122,20 @@ def charsFromMorseWords(word='... --- .  ... --- .   ... --- .'):
     print('chars', chars)
     return chars
 
-def normalize(char='_'):
-    return char.replace(' ','').replace('_','-')
+def normalize(text='_'):
+    # replace unusual minus and and not needed white spaces
+    return text.replace(' ','').replace('_','-')
 
-def decodeChar(char='.'):
+def decodeMorseChar(char='.'):
     for glyph in morsecode:
         if glyph.sequence == char:
             return glyph.letter
     return None
 
-def decodeText(text):
+
+## morse text decoder function
+
+def decodeMorseText(text):
     result = ' '
     sentences = sentencesFromMorseText(text)
     for sentence in sentences:
@@ -139,10 +144,10 @@ def decodeText(text):
             chars = charsFromMorseWords(word)
             result = result + ' '
             for char in chars:
-                g = decodeChar(normalize(char))
+                g = decodeMorseChar(normalize(char))
                 if g is not None:
                   result = result + str( g )
-                  print( decodeChar(normalize(char)) )
+                  print( decodeMorseChar(normalize(char)) )
     return str(result)
 
 if __name__ == '__main__':
@@ -150,4 +155,4 @@ if __name__ == '__main__':
         entered = input("Enter your morse code: ")
         if entered == 'q':
             break
-        print('translated to: ', decodeText(entered) ) 
+        print('translated to: ', decodeMorseText(entered) ) 
