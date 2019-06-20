@@ -5,7 +5,6 @@ from typing import Type, Tuple
 from maubot.handlers import command
 
 import re
-import random
 
 ## the bot class
 class morse(Plugin):
@@ -103,20 +102,20 @@ morsecode = (
         )
 
 
-def splitTextToSentence(text='... --- \t .  \n ... --- .  \r  ... --- .'):
+def sentencesFromMorseText(text='... --- \t .  \n ... --- .  \r  ... --- .'):
     ## splits text into sentences
     sentences = re.split(r'(\\{1,}|\r{1,}|\n{1,})', text)
     print('sentences', sentences)
     return sentences
 
 
-def splitSentenceToWords(sentence='... --- .  ... --- .   ... --- .'):
+def wordsFromMorseSentences(sentence='... --- .  ... --- .   ... --- .'):
     ## splits a sentence into words when two or more spaces 
     words = re.split("\s{2,}", sentence)
     print('words', words)
     return words
 
-def splitWordToChar(word='... --- .  ... --- .   ... --- .'):
+def charsFromMorseWords(word='... --- .  ... --- .   ... --- .'):
     ## splits a sentence into words when two or more spaces 
     chars = re.split("\s{1,}", word)
     print('chars', chars)
@@ -133,11 +132,11 @@ def decodeChar(char='.'):
 
 def decodeText(text):
     result = ' '
-    sentences = splitTextToSentence(text)
+    sentences = sentencesFromMorseText(text)
     for sentence in sentences:
-        words = splitSentenceToWords(sentence)
+        words = wordsFromMorseSentences(sentence)
         for word in words:
-            chars = splitWordToChar(word)
+            chars = charsFromMorseWords(word)
             result = result + ' '
             for char in chars:
                 g = decodeChar(normalize(char))
