@@ -1,0 +1,2 @@
+# morse
+maubot morse plugin
