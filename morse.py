@@ -12,12 +12,11 @@ class morse(Plugin):
     @command.new("morse", help="Morse a message")
     @command.argument("message" , pass_raw=True)
     async def morse_handler(self, evt: MessageEvent, message: str) -> None:
-        # result = ""
-        # if isMorseCode(message):
-        #     result = decodeText(message)
-        # else:
-        #     result = encodeText(message)
-        result = decodeText(message)
+        result = ""
+        if isMorseCode(message):
+            result = decodeText(message)
+        else:
+            result = encodeText(message)
         await evt.respond( result )
 
     @command.passive(regex=r"^...---...$")
