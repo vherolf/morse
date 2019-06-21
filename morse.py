@@ -156,8 +156,9 @@ def isMorseCode(text):
     allchar = len(text)
     dot = text.count('.')
     dash = text.count('-')
+    leer = text.count(' ')
     print(allchar, dot, dash)
-    if (dot+dash) > allchar/2:
+    if (dot+dash+leer) > allchar/4:
         return True
     return False
     
@@ -179,7 +180,7 @@ def decodeText(text):
 def encodeText(text):
     result = '' 
     for char in text.upper():
-        result = result + encodeChar(char)
+        result = result + encodeChar(char) + ' '
     return str(result)
 
 
