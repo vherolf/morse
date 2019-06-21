@@ -43,7 +43,7 @@ class Morse(NamedTuple):
 
 
 morsecode = (
-        Morse(" ", " "),
+        Morse(" "," "),
         Morse("A",".-"),
         Morse("B","-..."),
         Morse("C","-.-."),
@@ -153,17 +153,15 @@ def encodeChar(char='A'):
 ## morse text en-/decoder function
 
 def isMorseCode(text):
-    allchar = len(text)
     dot = text.count('.')
     dash = text.count('-')
     leer = text.count(' ')
-    print(allchar, dot, dash)
-    if (dot+dash+leer) > allchar/4:
+    if (dot+dash+leer) > len(text)/4:
         return True
     return False
     
 def decodeText(text):
-    result = ' '
+    result = '# '
     sentences = sentencesFromMorseText(text)
     for sentence in sentences:
         words = wordsFromMorseSentences(sentence)
@@ -178,8 +176,9 @@ def decodeText(text):
     return str(result)
 
 def encodeText(text):
-    result = '' 
+    result = '# ' 
     for char in text.upper():
+        print("EncodedText ",char)
         result = result + encodeChar(char) + ' '
     return str(result)
 
