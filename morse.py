@@ -176,10 +176,11 @@ def decodeText(text):
     return str(result)
 
 def encodeText(text):
-    result = '# ' 
+    result = "```" 
     for char in text.upper():
         print("EncodedText ",char)
         result = result + encodeChar(char) + ' '
+    result = result + "```"
     return str(result)
 
 
