@@ -12,7 +12,11 @@ class morse(Plugin):
     @command.new("morse", help="Morse a message")
     @command.argument("message" , pass_raw=True)
     async def morse_handler(self, evt: MessageEvent, message: str) -> None:
-        await evt.respond(decodeText(message))
+        if isMorseCode(message):
+            result = decodeText(message) )
+        else:
+            result = encodeText(message) )
+        await evt.respond( result )
 
     @command.passive(regex=r"^...---...$")
     async def ice_berg(self, evt: GenericEvent, _: str(Tuple[str]) ) -> None:
@@ -176,7 +180,7 @@ def encodeText(text):
     result = '' 
     for char in text.upper():
         result = result + encodeChar(char)
-    return result
+    return str(result)
 
 
 def main():
