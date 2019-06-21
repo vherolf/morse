@@ -1,10 +1,10 @@
-from mautrix.types import EventType, GenericEvent
-from maubot import Plugin, MessageEvent
-from maubot.handlers import event
-from typing import Type, Tuple
-from maubot.handlers import command
-    
 import re
+from typing import NamedTuple, Tuple, Type
+
+from maubot import MessageEvent, Plugin
+from maubot.handlers import command, event
+from mautrix.types import EventType, GenericEvent
+
 
 ## the bot class
 class morse(Plugin):
@@ -12,11 +12,12 @@ class morse(Plugin):
     @command.new("morse", help="Morse a message")
     @command.argument("message" , pass_raw=True)
     async def morse_handler(self, evt: MessageEvent, message: str) -> None:
-        result = ""
-        if isMorseCode(message):
-            result = decodeText(message)
-        else:
-            result = encodeText(message)
+        # result = ""
+        # if isMorseCode(message):
+        #     result = decodeText(message)
+        # else:
+        #     result = encodeText(message)
+        result = decodeText(message)
         await evt.respond( result )
 
     @command.passive(regex=r"^...---...$")
@@ -30,7 +31,6 @@ class morse(Plugin):
 #     letter : str
 #     sequence : str
 
-from typing import NamedTuple
 
 class Morse(NamedTuple):
     letter: str
