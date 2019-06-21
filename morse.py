@@ -135,7 +135,7 @@ def charsFromMorseWords(word='... --- .  ... --- .   ... --- .'):
 
 def normalize(text='_'):
     # replace unusual minus and and not needed white spaces
-    return text.replace(' ','').replace('_','-')
+    return text.replace('_','-')
 
 def decodeChar(char='.'):
     for glyph in morsecode:
@@ -161,7 +161,7 @@ def isMorseCode(text):
     return False
     
 def decodeText(text):
-    result = '# '
+    result = "```"
     sentences = sentencesFromMorseText(text)
     for sentence in sentences:
         words = wordsFromMorseSentences(sentence)
@@ -172,7 +172,7 @@ def decodeText(text):
                 g = decodeChar(normalize(char))
                 if g is not None:
                   result = result + str( g )
-                  print( decodeChar(normalize(char)) )
+    result = result + "```"
     return str(result)
 
 def encodeText(text):
